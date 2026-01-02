@@ -1,0 +1,113 @@
+.play {
+  display: flex; /* Flexbox használata az elemek elrendezéséhez */
+  flex-direction: column;
+  align-items: center; /* Függőlegesen középre igazítja az elemeket */
+  justify-content: center;
+  padding-top: var(--extra-vertical-padding02);
+  padding-bottom: var(--extra-vertical-padding02);
+  flex-wrap: wrap; /* Hosszú kártyasor esetén törje a sort */
+  font-size: clamp(1.2rem, 1.2vw, 1.8rem);
+  font-weight: 500;
+  gap: 0.2rem;
+  box-sizing: border-box;
+}
+
+/* Stílus a "Dealer:" és "Player:" feliratoknak */
+.play .label-text {
+  flex-shrink: 0; /* Megakadályozza, hogy ez az elem zsugorodjon és a szöveg törjön. */
+  font-weight: bold; /* Vastagabb betűtípus a címkéknek */
+  white-space: nowrap; /* Megakadályozza a szövegtörést a címkénél */
+  color: #403d3d; /* Sötétebb szín a jobb olvashatóságért */
+}
+
+.play .label-text1 {
+  flex-shrink: 0; /* Megakadályozza, hogy ez az elem zsugorodjon és a szöveg törjön. */
+  font-weight: bold; /* Vastagabb betűtípus a címkéknek */
+  white-space: nowrap; /* Megakadályozza a szövegtörést a címkénél */
+  color: #050505ff; /* Sötétebb szín a jobb olvashatóságért */
+}
+
+.hand {
+  display: flex; /* Flexbox használata az elemek elrendezéséhez */
+  align-items: center; /* Függőlegesen középre igazítja az elemeket */
+  justify-content: center;
+  padding-top: var(--extra-vertical-padding05);
+  padding-bottom: var(--extra-vertical-padding05);
+  flex-wrap: wrap; /* Hosszú kártyasor esetén törje a sort */
+  font-size: clamp(1.4rem, 1.2vw, 2rem);
+  font-weight: 500;
+  gap: 0.1rem;
+}
+
+/* Stílus a kártyák szív/káró piros színéhez */
+.red-suit {
+  color: #d41515; /* Piros szín */
+  font-weight: bold; /* Vastagabb betűtípus a jobb láthatóságért */
+}
+
+/* Stílus a kártyák pikk/treff fekete színéhez */
+.black-suit {
+  color: #000000; /* Fekete szín */
+  font-weight: bold; /* Vastagabb betűtípus a jobb láthatóságért */
+}
+
+/* Stílus az egyenlőségjelhez */
+.equal-text {
+  color: #615a5aff; /* Szürkésebb szín */
+  font-weight: 500;
+  font-style: italic;
+}
+
+.equal-text1 {
+  color: #615a5aff; /* Szürkésebb szín */
+  font-weight: 300;
+  font-style: italic;
+}
+
+.score-mood {
+  font-size: clamp(0.9rem, 1.3vw, 1.375rem);
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.line_down {
+  position: relative; /* Ahhoz kell, hogy a 'top' működjön */
+  top: 0.1em;
+}
+
+#players-list {
+  list-style-type: none; /* Ez távolítja el a pontokat */
+  padding: 0; /* Eltávolítja az alapértelmezett bal oldali behúzást */
+  margin: 0; /* Eltávolítja az alapértelmezett külső margót */
+  display: flex; /* Engedélyezi a flexbox elrendezést */
+  flex-direction: column; /* A listaelemek egymás alatt legyenek (alapértelmezett: row) */
+  align-items: flex-start; /* A tartalom a sor elejére igazítása vízszintesen */
+  box-sizing: border-box;
+}
+
+#players-list li {
+  display: flex;
+  flex-wrap: wrap; /* A tartalom sortörése, ha túl hosszú */
+  align-items: center; /* Függőlegesen középre igazítja a sort */
+  gap: 0.5rem; /* Elválasztó tér a tartalomnak */
+  text-align: left;
+  width: 100%; /* A teljes szülő szélességet elfoglalja */
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  #players-list {
+    flex-direction: row; /* Vízszintes elrendezés a lista elemeknek */
+    flex-wrap: wrap; /* Ha nem férnek el, új sorba törnek */
+    justify-content: center; /* Középre igazítja az elemeket */
+    gap: 1.55rem; /* Nagyobb térköz az elemek között horizontálisan */
+  }
+
+  #players-list li {
+    /* Az elemek szélességét most a tartalom határozza meg, nem a 100% */
+    width: auto;
+    gap: 0.2rem; /* Elválasztó tér a tartalomnak */
+  }
+}

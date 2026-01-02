@@ -1,0 +1,58 @@
+#cards,
+#start-button,
+#deal-bank,
+#chips {
+  display: flex;
+}
+
+.betting-screen-container {
+  padding-top: var(--extra-vertical-padding1);
+}
+
+.deal-bank {
+  padding-top: var(--extra-vertical-padding05);
+}
+
+.bank {
+  display: flex; /* Flexbox használata a belső elemek (pl. a nyertes üzenet) elrendezéséhez */
+  align-items: flex-start; /* Függőlegesen az elem tetejére igazítja a tartalmat */
+  text-align: left; /* A szöveget az elemen belül balra igazítja */
+  justify-content: flex-start;
+  font-size: clamp(1.2rem, 1.2vw, 1.8rem);
+  font-weight: 500;
+  padding-top: var(--extra-vertical-padding1);
+}
+
+.bank1 {
+  display: flex; /* Flexbox használata a belső elemek (pl. a nyertes üzenet) elrendezéséhez */
+  align-items: flex-start; /* Függőlegesen az elem tetejére igazítja a tartalmat */
+  text-align: left; /* A szöveget az elemen belül balra igazítja */
+  justify-content: flex-start;
+  font-size: clamp(1.2rem, 1.2vw, 1.8rem);
+  font-weight: 500;
+}
+
+.bank-amount {
+  margin-left: 0.5rem; /* Állítsd be a kívánt távolságot pixelben */
+  font-weight: bold; /* Ezt is hozzáadhatod, ha szeretnéd */
+}
+
+.bet-bank {
+  display: flex; /* Flexbox használata a belső elemek (pl. a nyertes üzenet) elrendezéséhez */
+  align-items: flex-start; /* Függőlegesen az elem tetejére igazítja a tartalmat */
+  text-align: left; /* A szöveget az elemen belül balra igazítja */
+  justify-content: flex-start;
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+  font-weight: 500;
+}
+
+/* Példa: Ha láthatóvá akarod tenni a Deal Bank szekciót egy bizonyos állapotban */
+/* Ezt egy React komponenssel vagy JavaScripttel adnád hozzá az elemhez */
+/* .deal-bank.active {
+  display: flex;
+} */
+
+/* Példa: Láthatóvá tesszük a chips szekciót */
+/* .chips.active {
+  display: flex;
+} */

@@ -1,0 +1,349 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.375rem);
+  line-height: clamp(1.4, 1.8vw, 2);
+  font-weight: 400;
+
+  background-color: rgb(104, 211, 142);
+  opacity: 1;
+  box-sizing: border-box;
+  color: #171515;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  min-height: 100vh; /* Legalább a teljes viewport magasságát foglalja el */
+  box-sizing: border-box; /* Fontos: padding és border is beleszámít a szélességbe */
+  margin: 0 auto; /* Középre igazítás és nincs felesleges margó */
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Egymás alá rendeződnek a gyermekek */
+
+  --extra-vertical-padding02: 0.2em;
+  --extra-vertical-padding05: 0.5em;
+  --extra-vertical-padding1: 1em;
+  box-sizing: border-box;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (min-width: 300px) {
+  #root {
+    padding-top: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .game-action-area-wrapper {
+    min-height: 4.6rem;
+  }
+}
+
+/* --- Small Breakpoint (sm): 640px-től felfelé --- */
+@media (min-width: 640px) {
+  #root {
+    padding-top: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 640px; /* Max szélesség a sm breakpointig */
+  }
+}
+
+/* --- Medium Breakpoint (md): 768px-től felfelé --- */
+@media (min-width: 768px) {
+  #root {
+    padding-top: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    max-width: 768px; /* Max szélesség az md breakpointig */
+  }
+}
+
+/* --- Large Breakpoint (lg): 1024px-től felfelé --- */
+@media (min-width: 1024px) {
+  #root {
+    padding-top: 4rem;
+    padding-left: 3.45rem;
+    padding-right: 3.45rem;
+    max-width: 1024px; /* Max szélesség az lg breakpointig */
+  }
+}
+
+/* --- Extra Large Breakpoint (xl): 1280px-től felfelé --- */
+@media (min-width: 1280px) {
+  #root {
+    padding-top: 1.8rem;
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
+    max-width: 1280px; /* Max szélesség az xl breakpointig */
+  }
+
+  .game-action-area-wrapper {
+    min-height: 4.0rem;
+  }
+}
+
+/* --- Double Extra Large Breakpoint (2xl): 1536px-től felfelé --- */
+@media (min-width: 1536px) {
+  #root {
+    padding-top: 1.8rem;
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
+    max-width: 1536px; /* Max szélesség a 2xl breakpointig */
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Esetlegesen fix szélességű tartalom mobilra igazítása, ha van */
+.content-wrapper {
+  width: 100%;
+  max-width: 600px; /* Pl. egy tartalom blokk max szélessége mobil nézetben */
+}
+
+.title1 {
+  font-size: clamp(0.225rem, 3vw, 1rem);
+  line-height: 1;
+  margin: 0;
+  text-align: left;
+  color: #d41515;
+}
+.title2 {
+  font-size: clamp(2.2rem, 8vw, 3.45rem);
+  line-height: 1;
+  font-weight: 600;
+  padding-bottom: 0.5em;
+  margin: 0;
+  text-align: left;
+}
+.red-suit {
+  color: #d41515;
+}
+.black-suit {
+  color: black;
+}
+.grey-suit {
+  color: rgb(53, 154, 74);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  border-radius: 4px;
+  background-color: rgb(199, 239, 205);
+  color: black;
+  border: 0.2px solid rgb(166, 180, 199);
+  padding: 0.2em 1.1em;
+  cursor: pointer;
+}
+
+button:hover:not([disabled]) {
+  background-color: rgb(199, 239, 205);
+  border-color: rgb(156, 167, 182);
+}
+
+button:focus {
+  outline: none;
+}
+
+/* --- Styles for the DISABLED state --- */
+button:disabled {
+  border: 0.2px solid rgba(195, 206, 220, 1);
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 1s ease-out;
+  padding-top: var(--extra-vertical-padding1);
+}
+
+.button-container.show-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 1;
+}
+
+.button-container1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 0.7;
+  transition: opacity 1s ease-out;
+  justify-content: center;
+}
+
+.button-container1.show-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 1;
+  justify-content: center;
+}
+
+/* Általános stílus a Start gomb engedélyezett állapotához, ha a hover és focus nem kell, hogy eltérjen: */
+#start-button {
+  padding: 0.2em 0.6em;
+  font-size: clamp(1.2rem, 1.3vw, 1.4rem);
+}
+
+/* Hover és Focus stílusok a tiszta átláthatóság érdekében */
+#start-button:hover,
+#start-button:focus,
+#start-button:disabled {
+  padding: 0.2em 0.6em;
+  font-size: clamp(1.2rem, 1.3vw, 1.4rem);
+}
+
+.player-dealer-area-wrapper {
+  display: flex;
+  align-items: flex-start; /* Függőlegesen középre igazítja az elemeket */
+  justify-content: center;
+  width: 100%;
+  padding-top: var(--extra-vertical-padding02);
+  padding-bottom: var(--extra-vertical-padding05);
+  min-height: 15rem;
+  box-sizing: border-box;
+}
+
+.game-action-area-wrapper {
+  display: flex;
+  align-items: flex-start;
+  /* align-items: center; Függőlegesen középre igazítja az elemeket */
+  justify-content: center;
+  width: 100%;
+  padding-top: var(--extra-vertical-padding02);
+  box-sizing: border-box;
+}
+
+.players-area-wrapper {
+  display: flex;
+  align-items: flex-start;
+  text-align: left; /* A szöveget az elemen belül balra igazítja */
+  justify-content: flex-start;
+  width: 100%;
+  padding-top: var(--extra-vertical-padding02);
+  box-sizing: border-box;
+}
+
+.hand-area-wrapper {
+  min-height: 2.5rem;
+}
+
+.band-area-wrapper {
+  display: flex;
+  width: 6rem;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.score-area-wrapper {
+  min-height: 1.8rem;
+}
+
+.winners {
+  display: flex;
+  font-size: var(--root-font-size);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 1.2vw, 2rem);
+  position: relative;
+}
+
+.merriweather {
+  font-family: "Merriweather", serif;
+  font-weight: 600;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+}
+
+.merriweatherblack {
+  font-family: "Merriweather", serif;
+  font-weight: 600;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+  color: #000000ff;
+}
+
+.merriweather9red {
+  font-family: "Merriweather", serif;
+  font-weight: 800;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+  color: #ba1616ff;
+}
+
+.merriweather9black {
+  font-family: "Merriweather", serif;
+  font-weight: 900;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+}
+
+.merriweather9 {
+  font-family: "Merriweather", serif;
+  font-weight: 900;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+  color: #ba1616ff;
+}
+
+.merriweather5grey {
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+  color: #403d3d;
+}
+
+.merriweather5grey2 {
+  font-family: "Merriweather", serif;
+  font-weight: 200;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+  color: #403d3d;
+}
+
+.error-container-centered h1 {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; /* A betűtípusod */
+  font-size: clamp(1.5rem, 2.3vw, 3rem);
+  font-weight: 500;
+  color: #504343ff;
+  display: inline-flex; /* <-- Módosítva: inline-flex, hogy jobban viselkedjen az alapvonallal */
+  align-items: baseline; /* <-- Módosítva: A pontok a szöveg alapvonalához igazodnak */
+  gap: 0; /* Ne legyen extra rés a "LOADING" és az első pont között */
+  margin: 0; /* Ne legyen alapértelmezett margó a h1-en */
+  padding: 0; /* Ne legyen alapértelmezett padding a h1-en */
+}
+
+.error-merriweather {
+  font-family: "Merriweather", serif;
+  font-size: clamp(1.2rem, 1.2vw, 1.8rem);
+  font-weight: 600;
+  font-style: italic;
+  font-variation-settings: "wdth" 100;
+  padding-top: 1.5rem;
+}

@@ -1,0 +1,91 @@
+/* src/styles/loading.css */
+
+/* Ez a konténer felelős a LOADING... felirat középre igazításáért a képernyőn */
+.loading-container-centered {
+  margin: 0 auto; /* Középre igazítás és nincs felesleges margó */
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Egymás alá rendeződnek a gyermekek */
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100vh; /* Teljes képernyő magasság */
+  width: 100%; /* Teljes képernyő szélesség */
+  position: fixed; /* Fixen a képernyőn, hogy ne befolyásolja más tartalom */
+  top: clamp(10rem, 1.375vw, 20rem);
+  background-color: transparent; /* Teljesen átlátszó háttér */
+  z-index: 9999; /* Legyen felül, ha van más tartalom */
+  box-sizing: border-box;
+}
+
+/* A LOADING... felirat stílusa */
+.loading-container-centered h1 {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; /* A betűtípusod */
+  font-size: clamp(1.5rem, 2.3vw, 3rem);
+  font-weight: 500;
+  color: #504343ff; /* A szöveg színe */
+  display: inline-flex; /* <-- Módosítva: inline-flex, hogy jobban viselkedjen az alapvonallal */
+  align-items: baseline; /* <-- Módosítva: A pontok a szöveg alapvonalához igazodnak */
+  gap: 0; /* Ne legyen extra rés a "LOADING" és az első pont között */
+  white-space: pre; /* Fontos! Megakadályozza, hogy a böngésző törje a sort a pontok előtt */
+  margin: 0; /* Ne legyen alapértelmezett margó a h1-en */
+  padding: 0; /* Ne legyen alapértelmezett padding a h1-en */
+}
+
+/* A pontok általános stílusa */
+.dot {
+  opacity: 0; /* Kezdetben láthatatlanok */
+  animation: dot-fade 1.4s infinite ease-in-out; /* Animáció */
+  font-size: clamp(1.8rem, 2.3vw, 3rem); /* Ugyanakkora méret, mint a "LOADING" szó */
+  line-height: 1; /* Nincs extra sorköz */
+  vertical-align: baseline; /* <-- Hozzáadva: biztosítja az alapvonalhoz igazítást */
+  display: inline-block; /* <-- Hozzáadva: hogy a vertical-align működjön */
+}
+
+/* Az egyes pontok animációjának késleltetése */
+.dot-1 {
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  animation-delay: 0.3s;
+}
+
+.dot-3 {
+  animation-delay: 0.7s;
+}
+
+/* Az animációs kulcskockák az átlátszóság változtatásához */
+@keyframes dot-fade {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.gap-right {
+  margin-right: 0.5rem;
+}
+
+.gap-left {
+  margin-left: 0.5rem;
+}
+
+.star-right {
+  margin-right: 0.1rem;
+}
+
+.star-left {
+  margin-left: 0.1rem;
+}
+
+.enjoy {
+  font-size: clamp(1.4rem, 1.2vw, 2.2rem);
+}
