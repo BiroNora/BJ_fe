@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../config/apiConfig";
 import type { ErrorResponse, SessionInitResponse } from "../types/game-types";
-import { generateUUID, getOrCreateIdempotencyKey } from "../utilities/utils";
+import { generateUUID } from "../utilities/utils";
 
 const runningInitializations = new Map<string, Promise<SessionInitResponse>>();
 
