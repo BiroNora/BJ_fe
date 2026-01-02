@@ -36,7 +36,7 @@ export async function initializeSessionAPI(): Promise<SessionInitResponse> {
 
   // 3. KÉSZÍTÉS ÉS CACHELÉS
   const initializationPromise = (async () => {
-    const maxRetries = 6; // Összesen kb. 30-40 másodperc (Render cold start ideje)
+    const maxRetries = 12; // Összesen kb. 30-40 másodperc (Render cold start ideje)
     const delayBetweenRetries = 5000; // 5 másodperc szünet két próbálkozás között
 
     for (let i = 0; i < maxRetries; i++) {
