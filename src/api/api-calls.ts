@@ -210,9 +210,9 @@ export async function callApiEndpoint<T>(
 ): Promise<T> {
   const fullUrl = `${API_BASE_URL}${endpoint}`;
 
-  if (import.meta.env.DEV) {
-      console.log(`🚀 Request to: ${fullUrl} [${method}]`);
-    }
+  // if (import.meta.env.DEV) {
+  //     console.log(`🚀 Request to: ${fullUrl} [${method}]`);
+  //   }
 
   const clientId = localStorage.getItem(CLIENT_STORAGE_ID_KEY);
 
