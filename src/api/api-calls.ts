@@ -36,7 +36,7 @@ export async function initializeSessionAPI(): Promise<SessionInitResponse> {
 
   // 3. KÉSZÍTÉS ÉS CACHELÉS
   const initializationPromise = (async () => {
-    const maxRetries = 6; // Összesen kb. 30-40 másodperc (Render cold start ideje)
+    const maxRetries = 12; // Összesen kb. 30-40 másodperc (Render cold start ideje)
     const delayBetweenRetries = 5000; // 5 másodperc szünet két próbálkozás között
 
     for (let i = 0; i < maxRetries; i++) {
@@ -210,9 +210,9 @@ export async function callApiEndpoint<T>(
 ): Promise<T> {
   const fullUrl = `${API_BASE_URL}${endpoint}`;
 
-  if (import.meta.env.DEV) {
-      console.log(`🚀 Request to: ${fullUrl} [${method}]`);
-    }
+  // if (import.meta.env.DEV) {
+  //     console.log(`🚀 Request to: ${fullUrl} [${method}]`);
+  //   }
 
   const clientId = localStorage.getItem(CLIENT_STORAGE_ID_KEY);
 

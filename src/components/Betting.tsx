@@ -93,6 +93,7 @@ const Betting: React.FC<BettingProps> = ({
     <div className="betting-screen-container">
       <motion.button
         id="start-button"
+        type="button"
         onClick={handleStartGame}
         disabled={isDisabled || isWFSR}
         variants={variants}
@@ -105,6 +106,7 @@ const Betting: React.FC<BettingProps> = ({
       <div id="deal-bank" className="deal-bank">
         <motion.button
           id="deal-button"
+          type="button"
           onClick={() => retakeBet()}
           disabled={isDisabled || isWFSR}
           variants={variants}
