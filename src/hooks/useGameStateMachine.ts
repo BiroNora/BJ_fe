@@ -889,7 +889,7 @@ export function useGameStateMachine(): GameStateMachineHookResult {
           resetGameVariables();
           timeoutIdRef.current = window.setTimeout(() => {
             if (isMountedRef.current) {
-              transitionToState("RELOADING");
+              transitionToState("RELOADING", gameState);
             }
           }, 5000);
         } catch (e) {
