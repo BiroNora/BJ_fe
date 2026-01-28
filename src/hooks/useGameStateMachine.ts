@@ -88,7 +88,7 @@ export function useGameStateMachine(): GameStateMachineHookResult {
   const isMountedRef = useRef(true);
   // Ez a védelmi zár (lock) az ismételt hívások ellen
   const isProcessingRef = useRef(false);
-  const restartTimeoutRef = useRef(null);
+  const restartTimeoutRef = useRef<number | null>(null);
 
   // Állapotváltó funkció
   const transitionToState = useCallback(
