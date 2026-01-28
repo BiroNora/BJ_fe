@@ -492,7 +492,7 @@ export function useGameStateMachine(): GameStateMachineHookResult {
     if (autoProcessingStates.includes(gameState.currentGameState)) {
       if (isProcessingRef.current) return; // Ha már fut, kilépünk
       isProcessingRef.current = true;      // Ha nem, lezárjuk
-   }
+    }
 
     // --- LOADING ÁLLAPOT KEZELÉSE ---
     if (gameState.currentGameState === "LOADING") {
