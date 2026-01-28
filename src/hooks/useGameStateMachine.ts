@@ -937,10 +937,9 @@ export function useGameStateMachine(): GameStateMachineHookResult {
         if (!isMountedRef.current) return;
 
         try {
-          resetGameVariables();
           restartTimeoutRef.current = window.setTimeout(() => {
             if (isMountedRef.current) {
-              console.log("3. Lopakodó időzítő lefutott, irány a RELOADING!");
+              resetGameVariables();
               transitionToState("RELOADING", gameState);
             }
           }, 5000);
