@@ -88,6 +88,7 @@ export function useGameStateMachine(): GameStateMachineHookResult {
   const isMountedRef = useRef(true);
   // Ez a védelmi zár (lock) az ismételt hívások ellen
   const isProcessingRef = useRef(false);
+  const restartTimeoutRef = useRef(null);
 
   // Állapotváltó funkció
   const transitionToState = useCallback(
@@ -458,6 +459,9 @@ export function useGameStateMachine(): GameStateMachineHookResult {
 
   // MÁSODIK (FŐ) useEffect: Játékállapot változások kezelése
   useEffect(() => {
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+    }
     //console.log("Fő useEffect futott. Jelenlegi állapot:", gameState.currentGameState);
     // Minden újrafutáskor töröljük az előzőleg beállított időzítőt, ha van.
     // Ez megakadályozza, hogy több időzítő fusson egyszerre, vagy "szellem" időzítők maradjanak.
@@ -934,8 +938,9 @@ export function useGameStateMachine(): GameStateMachineHookResult {
 
         try {
           resetGameVariables();
-          timeoutIdRef.current = window.setTimeout(() => {
+          restartTimeoutRef.current = window.setTimeout(() => {
             if (isMountedRef.current) {
+              console.log("3. Lopakodó időzítő lefutott, irány a RELOADING!");
               transitionToState("RELOADING", gameState);
             }
           }, 5000);
@@ -991,6 +996,11 @@ export function useGameStateMachine(): GameStateMachineHookResult {
       };
       Reloading();
     }
+    return () => {
+      if (restartTimeoutRef.current) {
+        clearTimeout(restartTimeoutRef.current);
+      }
+    };
   }, [gameState, transitionToState, savePreActionState, isMountedRef, timeoutIdRef, resetHitCounter, resetGameVariables, setInitDeckLen, hasOver21, handleApiAction]);
 
   return {
