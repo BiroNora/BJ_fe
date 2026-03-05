@@ -33,7 +33,8 @@ const Cards: React.FC<CardsProps> = ({ gameState, initDeckLen }) => {
 
   return (
     <div className="cards merriweather" id="cards">
-      Cards: {displayedDeckLen}
+      <span className="label">Cards:</span>
+      <span className="deck-count">{displayedDeckLen}</span>
     </div>
   );
 };

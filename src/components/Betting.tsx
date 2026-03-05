@@ -2,13 +2,13 @@ import type { GameStateData } from "../types/game-types";
 import "../styles/betting.css";
 import { formatNumber } from "../utilities/utils";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 interface BettingProps {
   gameState: GameStateData;
   onPlaceBet: (amount: number) => void;
   retakeBet: () => void;
-  onStartGame: (shouldShuffle: boolean) => void;
+  onStartGame: () => void;
   isWFSR: boolean;
 }
 
@@ -19,7 +19,7 @@ const Betting: React.FC<BettingProps> = ({
   onStartGame,
   isWFSR,
 }) => {
-  const { tokens, bet, deck_len } = gameState;
+  const { tokens, bet } = gameState;
 
   const [showButtons, setShowButtons] = useState(false);
   const timeoutIdRef = useRef<number | null>(null);
@@ -40,11 +40,6 @@ const Betting: React.FC<BettingProps> = ({
 
   const handleAllIn = () => {
     onPlaceBet(tokens);
-  };
-
-  const handleStartGame = async () => {
-    const shouldShuffle = deck_len === 0 || deck_len === 104 || deck_len < 60;
-    onStartGame(shouldShuffle);
   };
 
   const isDisabled = bet === 0;
@@ -89,12 +84,18 @@ const Betting: React.FC<BettingProps> = ({
     },
   };
 
+  const fadeProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.8 }, // Egy picit gyorsabb animáció általában profibb érzetet kelt
+  };
+
   return (
     <div className="betting-screen-container">
       <motion.button
         id="start-button"
-        type="button"
-        onClick={handleStartGame}
+        onClick={onStartGame}
         disabled={isDisabled || isWFSR}
         variants={variants}
         animate={isDisabled || isWFSR ? "disabled" : "enabled"}
@@ -106,7 +107,6 @@ const Betting: React.FC<BettingProps> = ({
       <div id="deal-bank" className="deal-bank">
         <motion.button
           id="deal-button"
-          type="button"
           onClick={() => retakeBet()}
           disabled={isDisabled || isWFSR}
           variants={variants}
@@ -118,9 +118,32 @@ const Betting: React.FC<BettingProps> = ({
           </motion.span>
         </motion.button>
       </div>
-      <div id="bank" className="bank merriweather">
-        Player's bank:{" "}
-        <span className="bank-amount">{formatNumber(tokens)}</span>
+
+      {/* BANK SZEKCIÓ */}
+      <div className="bank merriweather">
+        Player's bank:{"\u00A0"}
+        <div
+          style={{
+            display: "inline-grid",
+            verticalAlign: "bottom",
+            placeItems: "start",
+            width: "5rem",
+          }}
+        >
+          <AnimatePresence mode="popLayout">
+            <motion.span
+              key={formatNumber(tokens)}
+              {...fadeProps}
+              style={{
+                gridArea: "1 / 1",
+                whiteSpace: "nowrap",
+                display: "inline-block", // Biztosítja, hogy legyen kiterjedése
+              }}
+            > {"\u00A0"}
+              {formatNumber(tokens)}
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </div>
 
       <div

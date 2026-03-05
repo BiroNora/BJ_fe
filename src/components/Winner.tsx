@@ -8,9 +8,9 @@ interface TableProps {
 const Winner: React.FC<TableProps> = ({ gameState }) => {
   const { dealer_unmasked, winner } = gameState;
 
-  const nat21 = dealer_unmasked.natural_21;
-  const state = states[winner];
-  const winners = nat21 !== 0 ? states[nat21] : state;
+  const index =
+      dealer_unmasked.natural_21 !== 0 ? dealer_unmasked.natural_21 : winner;
+  const winners = states[index];
 
   const props = {
     initial: { opacity: 0 },
@@ -18,7 +18,7 @@ const Winner: React.FC<TableProps> = ({ gameState }) => {
     exit: { opacity: 0, scale: 0.8 },
     transition: {
       duration: 1,
-      delay: 0.5,
+      delay: 0.9,
     },
   };
 

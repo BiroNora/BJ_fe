@@ -9,8 +9,6 @@ interface PlayButtonsProps {
   onSplit: () => void;
   onInsurance: () => void;
   insPlaced: boolean;
-  hasHitTurn: boolean;
-  hasOver21: boolean;
   isWFSR: boolean;
 }
 
@@ -22,15 +20,15 @@ const PlayButtons: React.FC<PlayButtonsProps> = ({
   onSplit,
   onInsurance,
   insPlaced,
-  hasHitTurn,
-  hasOver21,
   isWFSR,
 }) => {
   const { tokens, bet, player, dealer_masked } = gameState;
-  const canDouble = tokens >= bet && !hasHitTurn;
+  const hasHit = gameState.player.has_hit > 0;
+  const canDouble = tokens >= bet && !hasHit;
   const canSplit =
-    player.hand.length == 2 && player.can_split && tokens >= bet && !hasHitTurn;
-  const canInsure = tokens >= bet / 2 && dealer_masked.can_insure && !hasHitTurn;
+    player.hand.length == 2 && player.can_split && tokens >= bet && !hasHit;
+  const canInsure = tokens >= bet / 2 && dealer_masked.can_insure && !hasHit;
+  const hasOver21 = player.sum >= 21;
   const [showButtons, setShowButtons] = useState(false);
   const timeoutIdRef = useRef<number | null>(null);
 

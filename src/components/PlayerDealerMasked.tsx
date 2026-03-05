@@ -1,21 +1,18 @@
 import React, { type JSX } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import type { GameStateData } from "../types/game-types";
 import "../styles/playerDealer.css";
-import { maskedScore } from "../utilities/utils";
 
 interface TableProps {
   gameState: GameStateData;
-  insMessage: boolean;
+  showInsLost: boolean;
 }
 
 const PlayerDealerMasked: React.FC<TableProps> = ({
   gameState,
-  insMessage,
+  showInsLost,
 }) => {
   const { player, dealer_masked } = gameState;
-
-  const dealerMasked = dealer_masked.hand[1][1];
-  const dealerMaskedScore = maskedScore(dealerMasked);
 
   const formatCard = (card: string): JSX.Element | string => {
     if (card.trim() === "✪") {
@@ -36,8 +33,10 @@ const PlayerDealerMasked: React.FC<TableProps> = ({
 
     return (
       <React.Fragment>
-        <span className={suitClass}>{suit}</span>
-        <span className="merriweatherblack">{value}</span>
+        <span style={{ whiteSpace: "nowrap" }}>
+          <span className={suitClass}>{suit}</span>
+          <span className="merriweatherblack">{value}</span>
+        </span>
       </React.Fragment>
     );
   };
@@ -75,9 +74,21 @@ const PlayerDealerMasked: React.FC<TableProps> = ({
 
   const formattedPlayerHand = formatHand(playerHand);
   const formattedDealerHand = formatHand(dealerHand);
+  
+  const fadeProps = {
+    initial: { opacity: 0 },
+    animate: {
+      // 0: láthatatlan, 1: látható, 1: még mindig látható (várakozás), 0: eltűnik
+      opacity: [0, 1, 1, 0],
+    },
+    transition: {
+      duration: 3.5, // A teljes folyamat hossza (megjelenés + várakozás + eltűnés)
+      times: [0, 0.3, 0.8, 1], // Mikor történjenek a fenti állapotok (0-tól 1-ig skálázva)
+    },
+  };
 
   return (
-    <div className="player-dealer-area">
+    <div>
       <div id="dealer-hand" className="play">
         <div className="hand hand-area-wrapper">{formattedDealerHand}</div>
         <div className="score-area-wrapper">
@@ -85,7 +96,7 @@ const PlayerDealerMasked: React.FC<TableProps> = ({
         </div>
         <div className="band-area-wrapper">
           <span className="label-text">Dealer: </span>
-          <span className="label-text1">{dealerMaskedScore}</span>
+          <span className="label-text1">{dealer_masked.sum}</span>
         </div>
       </div>
       <div id="player-hand" className="play">
@@ -94,11 +105,27 @@ const PlayerDealerMasked: React.FC<TableProps> = ({
           <span className="label-text1"> {player.sum}</span>
         </div>
         <div className="score-area-wrapper">
-          {insMessage ? (
-            <span className="score-mood merriweather9red">Insurance lost</span>
-          ) : (
-            <span className="score-mood merriweather5grey2">{}</span>
-          )}
+          <AnimatePresence mode="wait">
+            {" "}
+            {/* Ajánlott a sima váltáshoz */}
+            {showInsLost ? (
+              <motion.span
+                key="ins-lost" // Fix kulcs a feliratnak
+                {...fadeProps}
+                className="score-mood merriweather9red"
+              >
+                Insurance lost
+              </motion.span>
+            ) : (
+              <motion.span
+                key="ins-empty" // Fix kulcs az üres állapotnak
+                {...fadeProps}
+                className="score-mood merriweather5grey2"
+              >
+                {"\u00A0"} {/* Üres karakter, hogy a magasság megmaradjon */}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
         <div className="hand hand-area-wrapper">{formattedPlayerHand}</div>
       </div>

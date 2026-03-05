@@ -89,3 +89,8 @@
 .enjoy {
   font-size: clamp(1.4rem, 1.2vw, 2.2rem);
 }
+
+.status-message-box {
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
+}

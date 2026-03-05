@@ -8,7 +8,7 @@ export function OutOfTokens() {
         <span className="dot dot-2">.</span>
         <span className="dot dot-3">.</span>
       </h1>
-      <div className="bank merriweather">Restart in 5 sec</div>
+      <div className="bank merriweather">Restart in 5sec</div>
     </div>
   );
 }

@@ -5,6 +5,22 @@
   display: flex;
 }
 
+.cards {
+  min-height: 1.2rem;
+  display: flex;
+  font-weight: 600;
+  width: 1.2rem;
+  justify-content: space-between; /* A két szélre tolja őket */
+  align-items: center;
+}
+
+.deck-count {
+  display: inline-block;
+  min-width: 1.2rem; /* Elég hely 3 karakternek (100) */
+  text-align: right; /* A szám a saját blokkján belül jobbra igazodik */
+  margin-left: 0.5rem; /* Ez a "kis távolság" a szöveg és a szám között */
+}
+
 .betting-screen-container {
   padding-top: var(--extra-vertical-padding1);
 }
@@ -32,9 +48,28 @@
   font-weight: 500;
 }
 
-.bank-amount {
-  margin-left: 0.5rem; /* Állítsd be a kívánt távolságot pixelben */
-  font-weight: bold; /* Ezt is hozzáadhatod, ha szeretnéd */
+.bank2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0.5vw; /* A jelek közötti távolság is a szélességtől függ */
+  width: 100%;
+  justify-content: center; /* Mobilon jobb a középre igazítás */
+  white-space: nowrap; /* Tilos a sortörés! */
+
+  /* A titkos szósz: a szélesség 4%-a legyen a betűméret,
+     de minimum 0.8rem és maximum 1.8rem */
+  font-size: clamp(1rem, 4vw, 1.8rem);
+
+  width: 100%;
+  overflow: hidden; /* Biztonsági háló */
+  padding-top: var(--extra-vertical-padding1);
+}
+
+.bank3 {
+  padding-top: var(--extra-vertical-padding1);
+  padding-bottom: var(--extra-vertical-padding02);
+  font-size: clamp(1.2rem, 1.2vw, 1.8rem);
 }
 
 .bet-bank {

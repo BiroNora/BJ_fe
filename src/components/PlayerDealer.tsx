@@ -1,17 +1,17 @@
 import React, { type JSX } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { states, type GameStateData } from "../types/game-types";
 import "../styles/playerDealer.css";
 
 interface TableProps {
   gameState: GameStateData;
-  isSplitted: boolean;
 }
 
 const PlayerDealer: React.FC<TableProps> = ({ gameState }) => {
   if (!gameState || !gameState.player || !gameState.dealer_unmasked) {
     return null;
   }
-  const { player, dealer_unmasked } = gameState;
+  const { player, dealer_unmasked, currentGameState } = gameState;
 
   const formatCard = (card: string): JSX.Element | string => {
     const suit = card[0]; // Az első karakter a szín
@@ -28,8 +28,10 @@ const PlayerDealer: React.FC<TableProps> = ({ gameState }) => {
 
     return (
       <React.Fragment>
-        <span className={suitClass}>{suit}</span>
-        <span className="merriweatherblack">{value}</span>
+        <span style={{ whiteSpace: "nowrap" }}>
+          <span className={suitClass}>{suit}</span>
+          <span className="merriweatherblack">{value}</span>
+        </span>
       </React.Fragment>
     );
   };
@@ -68,6 +70,8 @@ const PlayerDealer: React.FC<TableProps> = ({ gameState }) => {
     states[dealer_unmasked.hand_state]
   );
 
+  const shouldShowScore = currentGameState !== "SPLIT_FINISH";
+
   const playerHand = loop(player.hand);
   const dealerHand = loop(dealer_unmasked.hand);
 
@@ -86,16 +90,51 @@ const PlayerDealer: React.FC<TableProps> = ({ gameState }) => {
       dealer_unmasked.sum
     );
 
+  const fadeProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: {
+      duration: 1,
+      delay: 0.3,
+    },
+  };
+
+  const fadeProps1 = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: {
+      duration: 0.8,
+    },
+  };
+
   return (
-    <div className="player-dealer-area">
+    <div >
       <div id="dealer-hand" className="play">
-        <div className="hand hand-area-wrapper">{formattedDealerHand}</div>
+        <motion.div
+          key={`d-hand-${dealerHand.length}`}
+          {...fadeProps}
+          className="hand hand-area-wrapper"
+        >
+          {formattedDealerHand}
+        </motion.div>
         <div className="score-area-wrapper">
-          <span className="score-mood merriweather5grey2">{d_state}</span>
+          <motion.span
+            key={`d-state-${dealer_unmasked.hand_state}`}
+            {...fadeProps}
+            className="score-mood merriweather5grey2 animate-fade"
+          >
+            {d_state}
+          </motion.span>
         </div>
         <div className="band-area-wrapper">
           <span className="label-text">Dealer: </span>
-          <span className="label-text1">{sum}</span>
+          <motion.span
+            key={`d-sum-${dealer_unmasked.sum}`}
+            {...fadeProps}
+            className="label-text1 animate-fade"
+          >
+            {sum}
+          </motion.span>
         </div>
       </div>
       <div id="player-hand" className="play">
@@ -104,7 +143,28 @@ const PlayerDealer: React.FC<TableProps> = ({ gameState }) => {
           <span className="label-text1">{player.sum}</span>
         </div>
         <div className="score-area-wrapper">
-          <span className="score-mood merriweather5grey">{p_state}</span>
+          <AnimatePresence mode="wait">
+            {" "}
+            {/* Ajánlott a sima váltáshoz */}
+            {shouldShowScore ? (
+              <motion.span
+                key={`p-state-${p_state}`}
+                {...fadeProps1}
+                className="score-mood merriweather5grey"
+              >
+                {p_state}
+              </motion.span>
+            ) : (
+              /* Ez a láthatatlan span megtartja a helyet */
+              <motion.span
+                key="empty-state"
+                initial={{ opacity: 0 }}
+                className="score-mood"
+              >
+                {"\u00A0"}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
         <div className="hand hand-area-wrapper">{formattedPlayerHand}</div>
       </div>

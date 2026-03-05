@@ -7,8 +7,12 @@ interface TableProps {
 
 const SplitWinner: React.FC<TableProps> = ({ gameState }) => {
   const { dealer_unmasked, winner } = gameState;
+  const BJ_DEALER_WON = 3;
+
   const winners =
-    dealer_unmasked["natural_21"] === 3 ? states[3] : states[winner];
+    dealer_unmasked.natural_21 === BJ_DEALER_WON
+      ? states[BJ_DEALER_WON]
+      : states[winner];
 
   const props = {
     initial: { opacity: 0 },

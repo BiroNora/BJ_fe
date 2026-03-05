@@ -3,8 +3,6 @@
   flex-direction: column;
   align-items: center; /* Függőlegesen középre igazítja az elemeket */
   justify-content: center;
-  padding-top: var(--extra-vertical-padding02);
-  padding-bottom: var(--extra-vertical-padding02);
   flex-wrap: wrap; /* Hosszú kártyasor esetén törje a sort */
   font-size: clamp(1.2rem, 1.2vw, 1.8rem);
   font-weight: 500;
@@ -31,8 +29,6 @@
   display: flex; /* Flexbox használata az elemek elrendezéséhez */
   align-items: center; /* Függőlegesen középre igazítja az elemeket */
   justify-content: center;
-  padding-top: var(--extra-vertical-padding05);
-  padding-bottom: var(--extra-vertical-padding05);
   flex-wrap: wrap; /* Hosszú kártyasor esetén törje a sort */
   font-size: clamp(1.4rem, 1.2vw, 2rem);
   font-weight: 500;

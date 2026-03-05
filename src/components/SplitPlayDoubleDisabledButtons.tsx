@@ -2,7 +2,6 @@ import type { GameStateData } from "../types/game-types";
 
 interface SplitPlayDoubleDisabledButtonsProps {
   gameState: GameStateData;
-  hitCounter: number | null;
 }
 
 const SplitPlayDoubleDisabledButtons: React.FC<
